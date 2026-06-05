@@ -1,0 +1,44 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+dist/
+*.egg-info/
+*.egg
+
+# Virtual envs
+.venv/
+venv/
+env/
+
+# Test / coverage
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+.tox/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Local secrets — never commit
+.env
+.env.*
+!.env.example
+
+# Local copies of the RED-2400 deposit (data, not code)
+red-2400/
+RED-2400/
+red2400_deposit/
+rejections.csv
+rejection_outcomes.csv
+graveyard_lifecycle.csv

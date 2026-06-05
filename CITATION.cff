@@ -1,0 +1,36 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite both the software and the companion paper."
+title: "RED-2400 Replication Toolkit"
+abstract: >
+  Reproducible filter-precision auditing of algorithmic decentralized-exchange
+  trading systems against the RED-2400 public benchmark dataset. Implements the
+  five-tier outcome-classification rule, per-filter audit reporting, aggregate
+  save-to-miss ratios under conservative and combined interpretations, and the
+  matched-comparison early-death validation from Kamat (2026).
+type: software
+version: "1.0.0"
+date-released: "2026-06-14"
+license: MIT
+repository-code: "https://github.com/aartikamat/red2400-replication-toolkit"
+authors:
+  - family-names: Kamat
+    given-names: Arati Uday
+    orcid: "https://orcid.org/0009-0000-4781-312X"
+    affiliation: "Independent Researcher, McKinney, Texas, USA"
+keywords:
+  - decentralized finance
+  - algorithmic trading
+  - reproducibility
+  - counterfactual evaluation
+  - reject inference
+  - benchmark dataset
+preferred-citation:
+  type: article
+  title: "Outcome-Classified Precision Auditing of Filter Rules in Algorithmic DEX Trading: Evidence from 2,400 Rejection Events"
+  authors:
+    - family-names: Kamat
+      given-names: Arati Uday
+      orcid: "https://orcid.org/0009-0000-4781-312X"
+  year: 2026
+  notes: "SSRN abstract ID 6638259. Currently under peer review."
+  url: "https://ssrn.com/abstract=6638259"

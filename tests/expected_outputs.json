@@ -1,0 +1,80 @@
+{
+  "n_rejections": 6660,
+  "overall": {
+    "flat": 18.24,
+    "missed": 25.62,
+    "n": 6660.0,
+    "saved_early_death": 2.78,
+    "saved_windowed": 53.35,
+    "unclassifiable": 0.02
+  },
+  "per_filter": {
+    "filter_1": {
+      "flat": 27.47,
+      "missed": 23.26,
+      "n": 2257,
+      "saved_early_death": 3.63,
+      "saved_windowed": 45.59,
+      "unclassifiable": 0.04
+    },
+    "filter_2": {
+      "flat": 15.42,
+      "missed": 31.7,
+      "n": 1530,
+      "saved_early_death": 5.23,
+      "saved_windowed": 47.65,
+      "unclassifiable": 0.0
+    },
+    "filter_3": {
+      "flat": 28.56,
+      "missed": 16.69,
+      "n": 893,
+      "saved_early_death": 2.35,
+      "saved_windowed": 52.41,
+      "unclassifiable": 0.0
+    },
+    "filter_4": {
+      "flat": 3.32,
+      "missed": 27.64,
+      "n": 843,
+      "saved_early_death": 0.12,
+      "saved_windowed": 68.92,
+      "unclassifiable": 0.0
+    },
+    "filter_5": {
+      "flat": 8.3,
+      "missed": 31.76,
+      "n": 699,
+      "saved_early_death": 0.0,
+      "saved_windowed": 59.94,
+      "unclassifiable": 0.0
+    },
+    "filter_6": {
+      "flat": 3.43,
+      "missed": 17.76,
+      "n": 321,
+      "saved_early_death": 0.31,
+      "saved_windowed": 78.5,
+      "unclassifiable": 0.0
+    },
+    "filter_7": {
+      "flat": 0.0,
+      "missed": 27.55,
+      "n": 98,
+      "saved_early_death": 0.0,
+      "saved_windowed": 72.45,
+      "unclassifiable": 0.0
+    },
+    "filter_8": {
+      "flat": 36.84,
+      "missed": 42.11,
+      "n": 19,
+      "saved_early_death": 0.0,
+      "saved_windowed": 21.05,
+      "unclassifiable": 0.0
+    }
+  },
+  "reference_price_mode": "first_sample_price",
+  "save_to_miss_combined": 2.1911,
+  "save_to_miss_conservative": 2.0826
+}

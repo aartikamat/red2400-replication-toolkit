@@ -1,0 +1,48 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "red2400-toolkit"
+version = "1.0.0"
+description = "Reproducible filter-precision auditing of algorithmic DEX trading systems against the RED-2400 public benchmark"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "Arati Uday Kamat", email = "arati.kamat@ieee.org" }]
+keywords = [
+    "decentralized-finance",
+    "algorithmic-trading",
+    "reproducibility",
+    "counterfactual-evaluation",
+    "reject-inference",
+    "benchmark",
+]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering",
+]
+dependencies = [
+    "pandas>=2.0",
+    "numpy>=1.24",
+]
+
+[project.optional-dependencies]
+figures = ["matplotlib>=3.7"]
+test = ["pytest>=7.4", "pytest-cov>=4.1"]
+
+[project.urls]
+Homepage = "https://github.com/aartikamat/red2400-replication-toolkit"
+Paper = "https://ssrn.com/abstract=6638259"
+Dataset = "https://doi.org/10.5281/zenodo.19989074"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["red2400_toolkit*"]
