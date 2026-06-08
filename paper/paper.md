@@ -17,6 +17,7 @@ affiliations:
     index: 1
 date: 4 June 2026
 bibliography: paper.bib
+archive: https://archive.softwareheritage.org/swh:1:rev:a85bf1ff1eb4af345752555a3a1844e5b172bf3e
 ---
 
 # Summary
