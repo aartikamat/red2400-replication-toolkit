@@ -1,0 +1,41 @@
+# Source distribution manifest — include repo docs and tests so downstream
+# packagers and auditors can reproduce the v2 correctness gate, but nothing
+# ad-hoc or private.
+
+include README.md
+include LICENSE
+include CITATION.cff
+include CHANGELOG.md
+include CONTRIBUTING.md
+include CODE_OF_CONDUCT.md
+include SECURITY.md
+include SUPPORT.md
+include GOVERNANCE.md
+include SEMVER_POLICY.md
+include DEVELOPER_SETUP.md
+include API_REFERENCE.md
+include pyproject.toml
+include requirements.txt
+
+recursive-include red2400_toolkit *.py
+recursive-include tests *.py *.json *.md
+recursive-include scripts *.py
+recursive-include examples *.py
+recursive-include paper *.md *.bib
+recursive-include docs *.md
+recursive-include .github/workflows *.yml
+
+# Explicit exclusions — never ship these.
+global-exclude __pycache__
+global-exclude *.py[cod]
+global-exclude *.so
+global-exclude .DS_Store
+global-exclude Thumbs.db
+global-exclude *.orig
+global-exclude *.bak
+prune .pytest_cache
+prune .git
+prune .venv
+prune build
+prune dist
+prune *.egg-info
