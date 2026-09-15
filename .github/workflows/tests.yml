@@ -29,8 +29,15 @@ jobs:
       - name: Run tests
         run: pytest -v --cov=red2400_toolkit --cov-report=term
 
-      - name: Verify byte-identical audit (requires deposit)
+      # The v1.0.0 byte-identical CI gate was retired with the v2 release
+      # (see CHANGELOG.md "Removed" entry and tests/test_audit_runner.py
+      # module docstring). Corrected v2 outputs do not, and must not,
+      # match tests/legacy/expected_outputs_v1_defective.json. That
+      # legacy fixture is verified only under MODE_LEGACY_MINT_POOLED in
+      # test_legacy_mode_reproduces_v1_defective_numbers_on_real_deposit,
+      # which is gated on the RED2400_DEPOSIT_DIR fixture directory.
+      - name: Verify v1 legacy regression witness (requires deposit)
         if: env.RED2400_DEPOSIT_DIR != ''
         env:
           RED2400_DEPOSIT_DIR: ${{ secrets.RED2400_DEPOSIT_DIR }}
-        run: pytest -v -k byte_identical
+        run: pytest -v -k reproduces_v1_defective_numbers

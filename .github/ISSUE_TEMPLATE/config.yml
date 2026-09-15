@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Security issues
+    url: https://github.com/aartikamat/red2400-replication-toolkit/blob/main/SECURITY.md
+    about: Please read SECURITY.md before filing a security-relevant report.
+  - name: How to contribute
+    url: https://github.com/aartikamat/red2400-replication-toolkit/blob/main/CONTRIBUTING.md
+    about: Development workflow, ground rules, and PR checklist.

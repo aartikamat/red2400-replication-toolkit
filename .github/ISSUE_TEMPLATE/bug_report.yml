@@ -1,0 +1,66 @@
+name: Bug report
+description: Report a defect, unexpected behaviour, or reproducibility failure.
+title: "[bug] <short description>"
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for filing a bug report. Scientific-correctness bugs
+        (any code path that produces different per-event outcome
+        attributions than the frozen five-tier rule and the P11 event
+        model) are treated as top priority. Please also apply the
+        `scientific-correctness` label to those.
+  - type: input
+    id: toolkit_version
+    attributes:
+      label: Toolkit version
+      description: Output of `pip show red2400-toolkit | grep Version` or the git tag / commit you installed from.
+      placeholder: "2.0.1"
+    validations:
+      required: true
+  - type: input
+    id: python_version
+    attributes:
+      label: Python version
+      description: Output of `python --version`.
+      placeholder: "3.12.x"
+    validations:
+      required: true
+  - type: input
+    id: platform
+    attributes:
+      label: Operating system
+      placeholder: "Linux / macOS / Windows"
+    validations:
+      required: true
+  - type: textarea
+    id: what_happened
+    attributes:
+      label: What happened
+      description: What did the toolkit do, and what did you expect it to do?
+    validations:
+      required: true
+  - type: textarea
+    id: reproducer
+    attributes:
+      label: Minimal reproducer
+      description: A short script, hand-constructed fixture, or `pytest` command that reproduces the issue. Please prefer synthetic fixtures over links to private deposits.
+      render: python
+    validations:
+      required: true
+  - type: textarea
+    id: traceback
+    attributes:
+      label: Traceback or diff
+      description: Full traceback, or the numerical diff between expected and observed output.
+      render: shell
+  - type: checkboxes
+    id: prechecks
+    attributes:
+      label: Pre-flight checks
+      options:
+        - label: I confirmed the issue reproduces on the latest tagged release (`v2.0.1` or later).
+          required: true
+        - label: I confirmed the issue is not a `MODE_LEGACY_MINT_POOLED` (v1-era) behaviour that is expected to differ from the corrected v2 default.
+          required: true

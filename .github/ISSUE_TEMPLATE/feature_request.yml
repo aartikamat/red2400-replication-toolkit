@@ -1,0 +1,41 @@
+name: Feature request
+description: Propose a new feature, dataset adapter, or scientific extension.
+title: "[feature] <short description>"
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for proposing a feature. Please note that the sole
+        author is the current maintainer; substantive additions are
+        discussed on the issue thread before a PR is opened.
+        See `GOVERNANCE.md` for how release decisions are made and
+        `CONTRIBUTING.md` for the development workflow.
+  - type: textarea
+    id: motivation
+    attributes:
+      label: Motivation
+      description: What problem does this feature solve? Which downstream use case is currently blocked or awkward?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed change
+      description: Public API sketch, expected inputs and outputs, and whether the change affects any scientific estimand (see `SEMVER_POLICY.md`).
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+      description: Other designs you considered and why you did not propose them.
+  - type: checkboxes
+    id: scope
+    attributes:
+      label: Scope acknowledgement
+      options:
+        - label: I have read `GOVERNANCE.md` and `CONTRIBUTING.md`.
+          required: true
+        - label: I acknowledge that scientific-behaviour changes require a major-version bump per `SEMVER_POLICY.md`.
+          required: true
