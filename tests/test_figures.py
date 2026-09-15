@@ -18,6 +18,7 @@ def test_fig1_writes_svg(synthetic_deposit, tmp_path):
         rejections=d.rejections,
         rejection_outcomes=d.rejection_outcomes,
         graveyard_lifecycle=d.graveyard_lifecycle,
+        on_missing="quarantine",
     )
     out = figure_1_age_distribution(cls, tmp_path / "fig1.svg")
     assert out.is_file()

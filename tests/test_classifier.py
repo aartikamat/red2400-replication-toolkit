@@ -1,4 +1,5 @@
-"""Deterministic five-tier classification tests."""
+"""Deterministic five-tier classification tests (single-event unit tests
+plus the v1-era dataset smoke test, updated for the event-keyed dispatch)."""
 
 import pandas as pd
 
@@ -14,7 +15,7 @@ from red2400_toolkit.prfs_classifier import (
 from red2400_toolkit.red2400_loader import load_deposit
 
 
-# ---------- single-event unit tests ----------
+# ---------- single-event unit tests (unchanged by v2) ----------
 
 def _samples(prices, age_mins=None, liquidity=None):
     if age_mins is None:
@@ -25,8 +26,6 @@ def _samples(prices, age_mins=None, liquidity=None):
 
 
 def test_missed_dominates_saved_windowed_per_tie_break():
-    # First sample (smallest ageMin) sets reference. Later samples include
-    # both a saved-triggering low and a missed-triggering high → MISSED wins.
     s = _samples(prices=[1.0, 0.3, 3.0], age_mins=[1, 60, 120])
     det = classify_event(s)
     assert det.tier == TIER_MISSED
@@ -40,20 +39,14 @@ def test_saved_windowed_alone():
 
 def test_saved_early_death_when_no_windowed_samples():
     s = pd.DataFrame(columns=["ageMin", "priceUsd", "liquidity"])
-    lc = pd.DataFrame({
-        "to":      ["gone"],
-        "ageDays": [0.02],   # ≈ 29 min
-    })
+    lc = pd.DataFrame({"to": ["gone"], "ageDays": [0.02]})
     det = classify_event(s, lifecycle_rows=lc)
     assert det.tier == TIER_SAVED_EARLY_DEATH
 
 
 def test_early_death_not_applied_above_age_threshold():
     s = pd.DataFrame(columns=["ageMin", "priceUsd", "liquidity"])
-    lc = pd.DataFrame({
-        "to":      ["gone"],
-        "ageDays": [0.05],   # 72 min > 60 min cutoff
-    })
+    lc = pd.DataFrame({"to": ["gone"], "ageDays": [0.05]})
     det = classify_event(s, lifecycle_rows=lc)
     assert det.tier == TIER_UNCLASSIFIABLE
 
@@ -74,22 +67,29 @@ def test_liquidity_proxy_mode_uses_liquidity_column():
     s = pd.DataFrame({
         "ageMin": [1, 60, 120],
         "priceUsd": [1.0, 1.0, 1.0],
-        "liquidity": [100.0, 30.0, 200.0],   # ratio: 1, 0.3, 2.0
+        "liquidity": [100.0, 30.0, 200.0],
     })
     det = classify_event(s, reference_price_mode="liquidity_proxy")
-    # liquidity goes from 100 → 30 (saved) AND 100 → 200 (missed) → MISSED
     assert det.tier == TIER_MISSED
 
 
-# ---------- dataset-level test via synthetic deposit ----------
+# ---------- dataset-level test via v1-era synthetic deposit ----------
 
 def test_dataset_classification_matches_synthetic_design(synthetic_deposit):
     d = load_deposit(synthetic_deposit)
+    # M3 (early-death path) and M5 (unclassifiable path) have no outcome
+    # rows in the v1-era synthetic fixture; that is deliberate for the
+    # lifecycle/unclassifiable branches. Pass on_missing='quarantine' so
+    # the classifier tolerates event-linkage orphans instead of raising.
     cls = classify_dataset(
         rejections=d.rejections,
         rejection_outcomes=d.rejection_outcomes,
         graveyard_lifecycle=d.graveyard_lifecycle,
+        on_missing="quarantine",
     )
+    # v2 output is indexed by event_id and carries mint as a column.
+    # One event per mint in this fixture, so we can lookup by mint.
+    by_mint = cls.reset_index().set_index("mint")
     expected = {
         "M1": TIER_MISSED,
         "M2": TIER_SAVED_WINDOWED,
@@ -98,5 +98,5 @@ def test_dataset_classification_matches_synthetic_design(synthetic_deposit):
         "M5": TIER_UNCLASSIFIABLE,
     }
     for mint, tier in expected.items():
-        actual = cls.loc[mint, "tier"]
+        actual = by_mint.loc[mint, "tier"]
         assert actual == tier, f"{mint}: expected {tier}, got {actual}"

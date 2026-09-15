@@ -13,7 +13,8 @@ from red2400_toolkit.red2400_loader import (
 def test_load_synthetic_deposit_passes(synthetic_deposit):
     d = load_deposit(synthetic_deposit)
     assert d.n_rejections == 5
-    assert d.n_samples == 7
+    # 7 in-window + 1 sentinel-late sample (S4 deposit_end_ms fixture).
+    assert d.n_samples == 8
     assert d.n_lifecycle == 2
 
 

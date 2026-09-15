@@ -1,4 +1,6 @@
 {
+  "mode": "mint_summary_LEGACY_defective",
+  "n_events": 6660,
   "n_rejections": 6660,
   "overall": {
     "flat": 18.24,
