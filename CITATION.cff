@@ -13,9 +13,9 @@ abstract: >
   rejection event.
 type: software
 version: "2.0.1"
-# Maintainer: update `date-released` to the actual tag date before pushing
-# the v2 tag. Leaving today's placeholder date here so the file parses.
-date-released: "2026-08-23"
+# date-released is the actual push date of the v2.0.1 tag on origin
+# (see JOSS_REPAIR_2026-09-15/PHASE6_RELEASE_LOG.md § 4).
+date-released: "2026-09-15"
 license: MIT
 repository-code: "https://github.com/aartikamat/red2400-replication-toolkit"
 # Placeholder for the software concept DOI. Distinct from the dataset

@@ -229,8 +229,8 @@ their count is surfaced through
 `LinkageDiagnostic.n_duplicate_outcome_rows`; the RED-2400 v2 deposit
 carries 51 such extractor-side duplicates.
 
-Right-truncated events — those whose 24-hour forward-observation
-window extends past the deposit's latest sample timestamp — are
+Right-truncated events (those whose 24-hour forward-observation
+window extends past the deposit's latest sample timestamp) are
 excluded from the primary per-filter denominator by default and
 surfaced separately through `AuditResult.truncated_events_n`. The
 RED-2400 v2 deposit carries 297 such events; the corrected primary
