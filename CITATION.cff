@@ -4,14 +4,25 @@ title: "RED-2400 Replication Toolkit"
 abstract: >
   Reproducible filter-precision auditing of algorithmic decentralized-exchange
   trading systems against the RED-2400 public benchmark dataset. Implements the
-  five-tier outcome-classification rule, per-filter audit reporting, aggregate
-  save-to-miss ratios under conservative and combined interpretations, and the
-  matched-comparison early-death validation from Kamat (2026).
+  five-tier outcome-classification rule with a canonical event identity model
+  (P11 event_id = sha256("event|" + mint + "|" + rejectTs_utc_ms + "|" + rejectReason)),
+  per-filter audit reporting, aggregate save-to-miss ratios under conservative
+  and combined interpretations, and the matched-comparison early-death
+  validation from Kamat (2026). v2 supersedes v1.0.0's mint-collapse defect
+  in which the classifier pooled outcome rows by mint rather than by
+  rejection event.
 type: software
-version: "1.0.0"
-date-released: "2026-06-14"
+version: "2.0.1"
+# Maintainer: update `date-released` to the actual tag date before pushing
+# the v2 tag. Leaving today's placeholder date here so the file parses.
+date-released: "2026-08-23"
 license: MIT
 repository-code: "https://github.com/aartikamat/red2400-replication-toolkit"
+# Placeholder for the software concept DOI. Distinct from the dataset
+# DOI (10.5281/zenodo.19989074). The maintainer will mint this DOI when
+# archiving the v2 tag to Zenodo (see MANUAL_RELEASE_INSTRUCTIONS_FOR_ARATI.md)
+# and un-comment the line below with the real value.
+# doi: "REPLACE_WITH_ZENODO_SOFTWARE_CONCEPT_DOI_AT_RELEASE"
 authors:
   - family-names: Kamat
     given-names: Arati Uday
@@ -21,9 +32,15 @@ keywords:
   - decentralized finance
   - algorithmic trading
   - reproducibility
-  - counterfactual evaluation
   - reject inference
   - benchmark dataset
+  - event identity model
+notes: >
+  v1.0.0 (2026-06-05) is preserved as a git tag for auditability but
+  contains a scientific-correctness defect in classify_dataset; do not
+  cite v1.0.0 event-level results. v2 supersedes v1.0.0 with the
+  event-keyed dispatch described above and adds an independent test
+  oracle at tests/oracle.py.
 preferred-citation:
   type: article
   title: "Outcome-Classified Precision Auditing of Filter Rules in Algorithmic DEX Trading: Evidence from 2,400 Rejection Events"
@@ -32,5 +49,9 @@ preferred-citation:
       given-names: Arati Uday
       orcid: "https://orcid.org/0009-0000-4781-312X"
   year: 2026
-  notes: "SSRN abstract ID 6638259. Currently under peer review."
+  # Companion-paper status: preprint on SSRN. The maintainer should
+  # revalidate this line against the paper's live state (any journal
+  # decision) at release time; do NOT reassert peer-review status
+  # unless a live acceptance is on record.
+  notes: "SSRN abstract ID 6638259. Verify companion-paper status before release."
   url: "https://ssrn.com/abstract=6638259"
