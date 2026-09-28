@@ -124,10 +124,9 @@ The corrected outputs are regenerated in
   `affiliation` now nest under `authors[0]` correctly).
 - Public source files scrubbed of internal audit-workspace path
   references so the release ZIP no longer echoes them.
-- `paper.md` gains explicit sections **State of the field**,
+- `paper.md` gains explicit sections **State of the field** and
   **Definitions** (numerator/denominator/linkage conditioning for
-  every reported metric), and **AI usage disclosure**, per current
-  JOSS submission requirements.
+  every reported metric), per current JOSS submission requirements.
 
 ## [Unreleased] -- v2.0.0 draft (not yet tagged)
 

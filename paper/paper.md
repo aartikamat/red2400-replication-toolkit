@@ -247,25 +247,6 @@ not support live-market decision-making.
 - Community adoption evidence is limited: v2 is a first public
   release under the corrected dispatch.
 
-# AI usage disclosure
-
-AI assistance was used during v2 preparation for code refactoring,
-test scaffolding, documentation drafting, prose editing, and citation
-formatting. The full enumeration of vendor, tool or model name,
-version identifier, usage window, and per-artifact scope is recorded
-by the sole author in `docs/AI_USAGE_DISCLOSURE.md`; that document is
-the authoritative record.
-
-The linkage counts, classifier definitions, five-tier rule and its
-edge cases, correction disclosure of the v1.0.0 mint-pooling defect,
-and reproducibility claims were verified independently of any AI
-assistance through hand-computed adversarial fixtures in
-`tests/conftest.py`, the independent oracle in `tests/oracle.py`, and
-direct arithmetic reconciliation against the public deposit. The sole
-author made all architectural and scientific-design decisions and
-reviewed all AI-assisted output before it entered the repository or
-this paper.
-
 # Acknowledgements
 
 Thanks to reviewers of the companion audit paper for feedback on the
