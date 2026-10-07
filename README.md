@@ -64,8 +64,11 @@ installable Python library. It:
 - Exposes four estimand modes so mint- and event-level results are
   never conflated: `event` (default), `first_event_per_mint`,
   `latest_event_per_mint`, `mint_summary`.
-- Performs the §V.C matched-comparison validation against the lifecycle
-  file at the event level.
+- Keeps the event-level comparison against the lifecycle file that the
+  companion paper reported in Section V. That comparison is withdrawn: it
+  was found to reflect repeated rejections of the same tokens. A correction
+  to the companion paper is in preparation. The code is kept only so the
+  earlier result can be reproduced; it should not be cited as a validation.
 - Regenerates Figures 1 and 2 of the companion paper.
 
 ## Install
