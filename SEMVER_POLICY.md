@@ -21,7 +21,7 @@ Any of the following bumps `MAJOR`:
 
 The **v1.0.0 → v2.0.0** bump is warranted because it changes the
 default dispatch from mint-pooled to event-keyed. Prior outputs will
-not match; that is the intended correction.
+not match; that is the intended change.
 
 ## What counts as a MINOR change
 
@@ -46,8 +46,7 @@ not match; that is the intended correction.
 
 Development versions use SemVer pre-release suffixes:
 `2.0.0-rc.1`, `2.0.0-rc.2`, then `2.0.0`. The
-current in-tree draft is versioned `2.0.0-draft` until the release
-candidate is cut.
+current in-tree version is 2.0.1.
 
 ## Publishing
 
@@ -58,9 +57,8 @@ Releases are:
    the RED-2400 dataset DOI).
 3. Published to PyPI under `red2400-toolkit`.
 
-The Zenodo software DOI is included in `CITATION.cff` and in the
-README badge (see the README correction draft). The dataset DOI badge
-in `README.md` v1.0.0 was incorrect and is being replaced.
+The Zenodo software DOI is added to `CITATION.cff` and to the README
+badge once it is minted.
 
 ## Deprecation policy
 

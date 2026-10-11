@@ -6,11 +6,9 @@ abstract: >
   trading systems against the RED-2400 public benchmark dataset. Implements the
   five-tier outcome-classification rule with a canonical event identity model
   (P11 event_id = sha256("event|" + mint + "|" + rejectTs_utc_ms + "|" + rejectReason)),
-  per-filter audit reporting, aggregate save-to-miss ratios under conservative
-  and combined interpretations, and the matched-comparison early-death
-  validation from Kamat (2026). v2 supersedes v1.0.0's mint-collapse defect
-  in which the classifier pooled outcome rows by mint rather than by
-  rejection event.
+  per-filter audit reporting, and aggregate save-to-miss ratios under
+  conservative and combined interpretations (Kamat, 2026). v2 attaches
+  outcomes to each rejection event.
 type: software
 version: "2.0.1"
 # date-released is the actual push date of the v2.0.1 tag on origin
@@ -36,11 +34,9 @@ keywords:
   - benchmark dataset
   - event identity model
 notes: >
-  v1.0.0 (2026-06-05) is preserved as a git tag for auditability but
-  contains a scientific-correctness defect in classify_dataset; do not
-  cite v1.0.0 event-level results. v2 supersedes v1.0.0 with the
-  event-keyed dispatch described above and adds an independent test
-  oracle at tests/oracle.py.
+  v1.0.0 (2026-06-05) is kept as a git tag to reproduce v1-era outputs;
+  cite v2 for per-event results. v2 also adds an independent test oracle
+  at tests/oracle.py.
 preferred-citation:
   type: article
   title: "Outcome-Classified Precision Auditing of Filter Rules in Algorithmic DEX Trading: Evidence from 2,400 Rejection Events"

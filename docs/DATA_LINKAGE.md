@@ -55,15 +55,12 @@ Filter `filter_8` has n = 19 in the v2 deposit. Per-filter
 percentages for that filter are unstable; downstream inference
 should use cluster-robust methods over repeated mints
 [@cameron2015practitioner]. The toolkit reports raw frequencies
-without confidence intervals.
+with 95% Wilson score intervals, which do not account for clustering by mint.
 
-## Extended audit history
+## Version history
 
-The v1.0.0 to v2.0.0 correction is documented in
-`../CHANGELOG.md`. The remediation cycle that produced v2.0.1 is
-documented in the release-audit workspace outside the reviewer
-bundle. Both are outside the software's scope but are cited here
-so the arithmetic above is traceable.
+The change from v1.0.0 to v2 is described in `../CHANGELOG.md`
+("v1.0.0 to v2: what changed").
 
 ## References
 

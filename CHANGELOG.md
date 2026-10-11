@@ -5,9 +5,81 @@ All notable changes to `red2400-toolkit` are documented in this file.
 Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/);
 semantic-versioning policy in `SEMVER_POLICY.md`.
 
-## [Unreleased] -- v2.0.1 draft (not yet tagged)
+## v1.0.0 to v2: what changed
 
-### Scientific-correctness closures (S1, S2, S3, S4, S5, S6)
+This section replaces the separate `V1_CORRECTION_NOTICE.md`
+(15 September 2026). The version-by-version entries follow below.
+
+**Version affected.** `v1.0.0` (tag object `9fb2b3e`, commit
+`a85bf1f`, tagged 5 June 2026). The tag is kept unchanged so v1-era
+outputs can be reproduced.
+
+**What changed.** In v1.0.0,
+`red2400_toolkit.prfs_classifier.classify_dataset` grouped outcome rows
+by **mint** alone and passed the same mint-level trajectory to every
+rejection event on that mint. The canonical event identity of the P11
+spec (`sha256("event|" + mint + "|" + rejectTs_utc_ms + "|" +
+rejectReason)`) was not used for dispatch. On the RED-2400 v2 deposit
+(`10.5281/zenodo.19989074`), 6,359 of the 6,660 rejection events
+(95.5 %) are on mints with more than one rejection event, so each of
+those events received a token-pooled outcome path rather than its own.
+
+| module | function | v1.0.0 behaviour |
+|---|---|---|
+| `red2400_toolkit/prfs_classifier.py` | `classify_dataset` | dispatch keyed by `mint` |
+| `red2400_toolkit/audit_runner.py` | `run_audit` | inherits the mint-keyed dispatch |
+| `red2400_toolkit/early_death_validator.py` | `matched_comparison` | mint-indexed lookup (see S2 under 2.0.1) |
+
+**Effect on results.** These v1.0.0 outputs are token-pooled, not
+per-event: `saved_windowed`, `missed` and `unclassifiable` (per filter
+and overall), `save_to_miss_conservative`, `save_to_miss_combined`,
+every derived tier attribution and per-filter table, and the
+`matched_comparison` right-censoring counts. Pooling merges several
+events' outcomes into one, so the size and direction of the difference
+vary by filter, depending on how repeat mints fall within each filter.
+
+| Overall metric | v1.0.0, token-pooled (6,660 events) | v2, per event (all 6,660 events) | v2.0.1 default (6,363 events) |
+|---|---:|---:|---:|
+| saved_windowed % | 53.35 | 9.07 | 9.16 |
+| missed % | 25.62 | 2.12 | 2.15 |
+| unclassifiable % | 0.02 | 43.83 | 43.45 |
+| save_to_miss_conservative | 2.0826 | 4.2837 | 4.2555 |
+| save_to_miss_combined | 2.1911 | 9.0000 | 9.1095 |
+
+The three columns come from `run_audit(d, mode=MODE_LEGACY_MINT_POOLED)`,
+`run_audit(d, on_missing='quarantine', include_truncated=True)` and
+`run_audit(d, on_missing='quarantine')` on the RED-2400 v2 deposit. The
+v2.0.1 default sets aside the 297 events whose 24-hour window runs past
+the end of the deposit (S4 under 2.0.1). Per-filter tables with 95 %
+Wilson intervals are produced by the same calls; for example filter_8
+(n = 19) reports `saved_windowed = 5.26 %` with a 95 % Wilson interval
+of [0.94 %, 24.64 %].
+
+**What stays the same.** The dataset (Zenodo `10.5281/zenodo.19989074`)
+is unchanged; only the classifier's dispatch step changed. The linkage
+counts (6,660 events, 169,123 outcome rows, 1,837 lifecycle snapshots),
+the single-event classifier `classify_event`, the tier thresholds and
+the observation window are unchanged. The dataset DOI covers the data
+only and is distinct from any software DOI for this toolkit.
+
+**v1.0.0 outputs kept for reproduction.** `tests/expected_outputs.json`
+from the v1.0.0 tag is kept byte-identical in `_LEGACY_v1_reference/`;
+the regression copy used by the legacy test is in `tests/legacy/`
+(see the README in each folder). Any output produced with v1.0.0 is
+token-pooled. Please cite v2 for per-event results.
+
+**v2 release.** `v2.0.1`: tag `v2.0.1`, commit
+`05b0daffd1785d38aabea11989dd824755691e99`, released 15 September 2026.
+SHA-256 of `git archive --format=tar.gz v2.0.1`:
+`981e4a008e37b8cd46b340f612fada7905821d0fdf10e42abf5cbd27b38eeb62`.
+The v1 estimand stays available as `MODE_LEGACY_MINT_POOLED` (emits
+`DeprecationWarning`); `matched_comparison` refuses a legacy frame
+unless `allow_legacy=True`. The API changes are listed under 2.0.0 and
+2.0.1 below.
+
+## [2.0.1] -- 2026-09-15
+
+### Estimator updates (S2, S4, S5, S6)
 
 - **S2 (right-censoring in matched_comparison; CLOSE).**
   `early_death_validator.matched_comparison` now distinguishes
@@ -42,7 +114,7 @@ semantic-versioning policy in `SEMVER_POLICY.md`.
   reports `saved_windowed = 5.26 %` with a 95 % Wilson interval of
   [0.94 %, 24.64 %].
 
-### Scientific-correctness scope-outs (S1, S3; disclosure surface implemented)
+### Scope-outs with disclosure (S1, S3; disclosure surface implemented)
 
 - **S1 (first-sample reference-price bias; SCOPE OUT — permitted
   reason 1: rejection-time price is not recorded in the RED-2400
@@ -79,8 +151,7 @@ semantic-versioning policy in `SEMVER_POLICY.md`.
     users can bracket the boundary sensitivity numerically.
   - See `tests/test_s3_early_death_interval_censoring.py`.
 
-### Numerical impact of the S2 / S4 / S5 / S6 closures on the corrected
-### v2 outputs (RED-2400 v2 deposit)
+### Effect of the S2 / S4 / S5 / S6 updates on v2 outputs (RED-2400 v2 deposit)
 
 - Primary denominator: 6,660 → 6,363 (297 right-truncated events
   excluded).
@@ -95,7 +166,7 @@ semantic-versioning policy in `SEMVER_POLICY.md`.
 - `truncated_events_n`: — → 297
 - Every per-filter row now carries `<tier>_ci_lo` / `<tier>_ci_hi`.
 
-The corrected outputs are regenerated in
+The v2.0.1 outputs are regenerated in
 `tests/corrected_v2_outputs.json` (v2.0.1 refresh).
 
 ### Documentation and diagnostics
@@ -112,7 +183,7 @@ The corrected outputs are regenerated in
   outcome-side `event_id` collapse is `n_distinct_outcome_event_ids
   = 3,878 = 3,333 + 545 orphan outcome ids`. The v2.0.0 pre-release
   paper narrative that quoted 3,878 as "events with attachable
-  outcome rows" is corrected in `paper/paper.md`.
+  outcome rows" is updated in `paper/paper.md`.
 - Third-party scholarly references added to `paper/paper.bib`
   (Hand & Henley 1997; Crook & Banasik 2004; Cameron & Miller 2015;
   Sandve et al. 2013; Wilkinson et al. 2016; Taschuk & Wilson 2017;
@@ -128,29 +199,29 @@ The corrected outputs are regenerated in
   **Definitions** (numerator/denominator/linkage conditioning for
   every reported metric), per current JOSS submission requirements.
 
-## [Unreleased] -- v2.0.0 draft (not yet tagged)
+## [2.0.0] -- not tagged separately (shipped in the v2.0.1 tag)
 
-### Scientific-correctness impact
+### Effect on results
 
-- **Fix event/mint conflation in `classify_dataset`.** v1.0.0 pooled
+- **Per-event dispatch in `classify_dataset`.** v1.0.0 pooled
   outcome rows by `mint` alone, so every rejection event on a repeat
   mint received the same pooled trajectory. On the RED-2400 v2 deposit
-  6,359 of 6,660 events (95.5 %) lived on repeat mints, so the defect
-  touched nearly every event. The v2 dispatch attaches outcomes per
+  6,359 of 6,660 events (95.5 %) lived on repeat mints, so the pooling
+  affected nearly every event. The v2 dispatch attaches outcomes per
   event via the canonical
   `event_id = sha256("event|" + mint + "|" + rejectTs_utc_ms + "|"
   + rejectReason).hexdigest()[:16]`
   from the P11 canonicalization spec.
-- **Numerical impact on the RED-2400 v2 corpus** (6,660 events;
+- **Change in the numbers on the RED-2400 v2 corpus** (6,660 events;
   see `TEST_EVIDENCE/v1_vs_v2_side_by_side.txt`):
   - overall saved_windowed: 53.35 % → 9.07 %
   - overall missed:  25.62 % → 2.12 %
   - overall unclassifiable:  0.02 % → 43.83 %
   - save_to_miss (conservative): 2.08 → 4.28
   - save_to_miss (combined):  2.19 → 9.00
-- **Users must not cite v1.0.0 numbers** as event-level scientific
-  results. The v1.0.0 tag is preserved for reproducibility of v1-era
-  artifacts only.
+- Please cite v2 numbers for event-level results; v1.0.0 numbers are
+  token-pooled. The v1.0.0 tag is kept so v1-era outputs can be
+  reproduced.
 
 ### Added
 
@@ -201,11 +272,11 @@ The corrected outputs are regenerated in
 - `scripts/generate_expected_outputs.py` now writes to
   `tests/legacy/expected_outputs_v1_defective.json` and runs under
   `MODE_LEGACY_MINT_POOLED` -- the file is a regression witness of the
-  v1 defect, not an oracle.
+  v1.0.0 token-pooled outputs, not an oracle.
 
 ### Retained (unchanged)
 
-- `classify_event` single-event API -- the defect was in dispatch, not
+- `classify_event` single-event API -- the change was in dispatch, not
   in per-event classification.
 - Tier constants, thresholds, and observation-window semantics.
 - Loader schema (`red2400_loader.py`).
@@ -213,8 +284,8 @@ The corrected outputs are regenerated in
 ### Removed
 
 - The byte-identical CI test that locked production output to
-  `tests/expected_outputs.json`. That test certified reproduction of
-  the v1 defect. It has been replaced by the adversarial event-level
+  `tests/expected_outputs.json`. That test locked in the v1.0.0
+  token-pooled output. It has been replaced by the adversarial event-level
   correctness gate. The legacy fixture is retained under
   `tests/legacy/` for reproducing v1 numbers via
   `MODE_LEGACY_MINT_POOLED`.
@@ -244,6 +315,6 @@ table and save-to-miss ratios.
 
 ## [1.0.0] -- 2026-06-05
 
-Initial release. **Contains the mint-collapse defect described above.**
-Preserved as a git tag for auditability; not recommended for citation
-of event-level results. See `README.md` correctness notice.
+Initial release. Pools outcomes by token (see "v1.0.0 to v2: what
+changed" and the 2.0.0 notes above); kept as a git tag for reproducing
+v1-era results. See the version note in `README.md`.

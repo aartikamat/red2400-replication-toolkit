@@ -1,23 +1,22 @@
-# v1.0.0 legacy reference — retained for correction-notice verification
+# v1.0.0 reference outputs (kept for reproduction)
 
 ## What this directory holds
 
 - `expected_outputs_v1_defective.json` — the byte-identical
-  `expected_outputs.json` shipped with the v1.0.0 release. **These
-  numbers reproduce the v1 scientific-correctness defect** (the
-  mint-collapse in `classify_dataset`) and are retained only so that
-  the correction notice in `README.md` and `paper/paper.md` remains
+  `expected_outputs.json` shipped with the v1.0.0 release. These
+  numbers reproduce the v1.0.0 token-pooled outputs (the mint-level
+  grouping in `classify_dataset`) and are kept only so that the
+  version note in `README.md` and `paper/paper.md` remains
   independently verifiable: a reader can compute the v1 numbers on
   demand under `MODE_LEGACY_MINT_POOLED` and confirm they match the
   archived reference here, and can compute the v2 numbers under the
   default `MODE_EVENT` and confirm they differ as documented.
 
-## What this directory is NOT
+## What this directory is not
 
-- Not a scientific reference for per-event outcomes. v1 numbers must
-  not be cited as event-level scientific results — see the README's
-  "Scientific correctness notice" and `CHANGELOG.md`'s v2.0.0
-  entries.
+- Not a reference for per-event outcomes. v1.0.0 numbers are
+  token-pooled; cite v2 for event-level results. See the version note
+  in `README.md` and "v1.0.0 to v2: what changed" in `CHANGELOG.md`.
 - Not part of the pytest suite. The v2 test suite lives under
   `tests/` at the toolkit root and consumes only the v2 corrected
   outputs in `tests/corrected_v2_outputs.json`.
@@ -34,5 +33,4 @@ res = run_audit(d, mode=MODE_LEGACY_MINT_POOLED)  # emits DeprecationWarning
 ```
 
 The `DeprecationWarning` is intentional — the legacy dispatch is
-retained only for auditability of v1-era artifacts and is never a
-scientific default.
+kept only for reproducing v1-era outputs and is never the default.

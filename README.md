@@ -10,38 +10,39 @@
   MANUAL_RELEASE_INSTRUCTIONS_FOR_ARATI.md). -->
 <!-- [![Software DOI](https://zenodo.org/badge/DOI/SOFTWARE_DOI.svg)](https://doi.org/SOFTWARE_DOI) -->
 
-> [!CAUTION]
-> ## Scientific correctness notice -- v1.0.0 results should not be trusted for per-event attribution
+> [!NOTE]
+> **Version note (v2, September 2026).**
 >
-> An independent audit (2026-08-21) confirmed that
-> `red2400_toolkit.prfs_classifier.classify_dataset` up to and including
-> the `v1.0.0` release grouped outcome rows by **mint** and passed the
-> same mint-level trajectory to every rejection event on that mint.
-> Because 6,359 of 6,660 events in the RED-2400 v2 deposit (95.5 %) live
-> on repeat mints, the per-filter distributions, tier attributions, and
-> `save_to_miss_conservative` / `save_to_miss_combined` ratios produced by
-> v1.0.0 **do not measure per-event outcomes**.
+> A later audit (21 August 2026) found that
+> `red2400_toolkit.prfs_classifier.classify_dataset`, up to and including
+> the `v1.0.0` release, grouped outcome rows by **mint** (token) and gave
+> every rejection event on that mint the same token-level outcome path.
+> Because 6,359 of 6,660 events in the RED-2400 v2 deposit (95.5 %) are
+> on repeat mints, the v1.0.0 per-filter tables, tier attributions and
+> `save_to_miss_conservative` / `save_to_miss_combined` ratios are
+> token-pooled, not per-event results.
 >
-> The v2 release adopts the P11 canonical event model
-> (`event_id = sha256("event|" + mint + "|" + rejectTs_utc_ms +
-> "|" + rejectReason)`) so outcomes are attached per event rather than
-> per mint. Numerical impact on the RED-2400 v2 corpus (6,660 events):
+> v2 attaches outcomes to each rejection event through the P11 canonical
+> event model (`event_id = sha256("event|" + mint + "|" + rejectTs_utc_ms +
+> "|" + rejectReason)`). On the same 6,660 events:
 >
-> | metric | v1 (mint-pooled) | v2 (event-keyed) |
+> | metric | v1.0.0 (token-pooled) | v2 (per event) |
 > |---|---:|---:|
 > | overall saved_windowed % | 53.35 | 9.07 |
 > | overall missed %  | 25.62 | 2.12 |
 > | overall unclassifiable % | 0.02  | 43.83 |
 > | save_to_miss (combined)  | 2.19  | 9.00 |
 >
-> **Do not cite v1.0.0 per-filter tables or save-to-miss ratios as
-> event-level scientific findings.** The dataset itself
-> (Zenodo `10.5281/zenodo.19989074`) is unaffected -- only the
-> classifier's dispatch layer was defective.
+> The v2.0.1 default also sets aside the 297 events whose 24-hour window
+> runs past the end of the deposit (overall saved_windowed 9.16 % of
+> 6,363 events; see [`CHANGELOG.md`](CHANGELOG.md)).
 >
-> v1.0.0 is preserved as a git tag for reproducibility of v1-era
-> artifacts; the v2 API exposes a `MODE_LEGACY_MINT_POOLED` estimand
-> that reproduces v1 outputs on demand and emits a `DeprecationWarning`.
+> Please cite v2 results. The dataset (Zenodo `10.5281/zenodo.19989074`)
+> is unchanged; only the classifier's dispatch step changed. v1.0.0 is
+> kept as a git tag so v1-era outputs can be reproduced, and the
+> `MODE_LEGACY_MINT_POOLED` estimand reproduces them on demand with a
+> `DeprecationWarning`. What changed, in full:
+> [`CHANGELOG.md`](CHANGELOG.md).
 
 Reproducible filter-precision auditing of algorithmic decentralized-exchange
 (DEX) trading systems against the **RED-2400 public benchmark**.
@@ -102,7 +103,7 @@ pip install "red2400-toolkit[figures]"
 from red2400_toolkit import load_deposit, run_audit
 
 deposit = load_deposit("/path/to/RED-2400-v2/")
-result  = run_audit(deposit)  # default: mode='event', on_missing='raise'
+result  = run_audit(deposit, on_missing='quarantine')  # mode='event'; see the note below
 
 print(result.per_filter)
 print(f"save-to-miss (conservative): {result.save_to_miss_conservative:.2f}")
@@ -112,11 +113,10 @@ print(f"linkage: {result.linkage_diagnostic}")
 
 **Note on `on_missing`.** The default `on_missing='raise'` hard-fails if any
 rejection row lacks a matching outcome row for its canonical `event_id`. On
-the published RED-2400 v2 deposit (`10.5281/zenodo.19989074`) this default
-succeeds because every rejection is either linked (event-keyed) or has an
-absent-outcome (unclassifiable) counterpart under the P11 spec. Pass
-`on_missing='quarantine'` to tolerate orphan rejections in ad-hoc or
-partial deposits; quarantined events are surfaced in
+the published RED-2400 deposit (`10.5281/zenodo.19989074`) about half of the
+rejection events have no attachable outcome row, so the default raises
+`EventLinkageError`. Pass `on_missing='quarantine'` to audit the linked
+events (as in the example above); quarantined events are surfaced in
 `result.linkage_diagnostic` rather than silently dropped.
 
 To reproduce v1.0.0 numbers exactly (for auditing v1-era artifacts):

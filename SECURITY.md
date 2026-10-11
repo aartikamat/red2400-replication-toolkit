@@ -5,7 +5,7 @@
 | Version | Supported                        |
 |---------|----------------------------------|
 | 2.x     | Yes — active development         |
-| 1.0.0   | No (tag preserved for auditability only; contains a known scientific-correctness defect — see CHANGELOG.md and the v2 migration notice in README.md) |
+| 1.0.0   | No (tag kept for reproducing v1-era outputs; see CHANGELOG.md) |
 
 ## Reporting a Vulnerability
 
@@ -40,7 +40,6 @@ via routine version pinning rather than expedited release.
 
 ## Scientific-correctness reports
 
-Scientific-correctness defects (like the v1.0.0 mint-collapse defect
-tracked as issue #1 in the v2 remediation) are handled as `bug`
-issues, not security issues, but are treated with the same priority.
+Scientific-correctness reports are handled as `bug` issues, not
+security issues, but are treated with the same priority.
 They may be reported publicly.

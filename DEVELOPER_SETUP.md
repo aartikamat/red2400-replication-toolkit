@@ -34,10 +34,10 @@ pip install -e ".[test,figures]"
 pytest -v
 ```
 
-Expected: the full suite defines 72 tests. Without the real deposit
-`pytest -v` collects 72 and reports **71 passed, 1 skipped** (the
+Expected: the full suite defines 96 tests. Without the real deposit
+`pytest -v` collects 96 and reports **95 passed, 1 skipped** (the
 real-deposit legacy-witness test skips unless the deposit is
-available). With `RED2400_DEPOSIT_DIR` set, all 72 pass.
+available). With `RED2400_DEPOSIT_DIR` set, all 96 pass.
 
 ## 5. Run the real-deposit tests (optional)
 
@@ -49,9 +49,9 @@ export RED2400_DEPOSIT_DIR=/path/to/RED-2400-v2
 pytest -v
 ```
 
-Now all 72 tests run, including
+Now all 96 tests run, including
 `test_legacy_mode_reproduces_v1_defective_numbers_on_real_deposit`
-(the regression witness for the v1 defect).
+(the regression witness for the v1.0.0 token-pooled outputs).
 
 ## 6. Regenerate reference outputs
 
@@ -61,7 +61,7 @@ Corrected v2 (event-keyed) outputs:
 python scripts/generate_corrected_v2_outputs.py $RED2400_DEPOSIT_DIR
 ```
 
-Legacy v1 witness (defective mint-pooled outputs):
+Legacy v1 witness (v1.0.0 token-pooled outputs):
 
 ```bash
 python scripts/generate_expected_outputs.py $RED2400_DEPOSIT_DIR

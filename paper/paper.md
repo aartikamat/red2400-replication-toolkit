@@ -37,13 +37,12 @@ classification, and reports per-filter distributions and descriptive
 save-to-miss ratios. It ships an independent reference implementation
 of the rule as a test oracle, an adversarial fixture with
 hand-computed expected tiers, and a legacy compatibility mode that
-reproduces the defective mint-pooled dispatch of the v1.0.0 release
-for audit purposes.
+reproduces the token-pooled dispatch of the v1.0.0 release.
 
-The v2 release corrects a scientific-correctness defect present
-through v1.0.0 (see "Correction disclosure"). Observed event-level
-results reported by v2 therefore differ substantially from v1 outputs
-on the same deposit.
+Version 2 attaches outcomes to each rejection event; version 1.0.0
+pooled them by token, so its results differ substantially and its
+tables are kept only for reproduction (see "Version history" and
+`CHANGELOG.md`).
 
 # Statement of need
 
@@ -112,15 +111,15 @@ The package comprises six modules exposed through `red2400_toolkit`:
   is available.
 
 **Architectural trade-offs.** Two dispatch modes are offered because
-audit continuity requires the defective v1.0.0 pooled dispatch remain
-reproducible on demand, but scientific correctness requires the
-corrected event-keyed dispatch be the default and never be selected
-silently. On the RED-2400 v2 deposit 95.5% of events sit on repeat
+the v1.0.0 token-pooled dispatch must remain reproducible on demand,
+while per-event results require the event-keyed dispatch to be the
+default and the pooled dispatch never to be selected silently. On the
+RED-2400 v2 deposit 95.5% of events sit on repeat
 mints, so mint-pooled dispatch conflates outcome trajectories at
 population scale. The legacy mode is retained as an explicit named
 enum (`MODE_LEGACY_MINT_POOLED`), gated by a `DeprecationWarning`,
-and raises `LegacyModeError` when composed with
-`early_death_validator`.
+and `early_death_validator` raises a `ValueError` for legacy frames
+unless `allow_legacy=True` is passed explicitly.
 
 **Oracle independence.** `tests/oracle.py` implements the five-tier
 rule from scratch without importing `red2400_toolkit`. Every
@@ -135,17 +134,17 @@ of the wheel, sdist, and source-release ZIP, and per-event provenance
 in `AuditResult.linkage_diagnostic` let any downstream reanalysis
 join back to the deposit rows it consumed.
 
-# Correction disclosure (v1.0.0 defect)
+# Version history
 
 `prfs_classifier.classify_dataset` in v1.0.0 grouped outcome rows by
 `mint` alone, so every rejection event on a repeat mint received the
 same pooled per-mint forward trajectory. On the RED-2400 v2 deposit,
-6,359 of 6,660 events (95.5%) live on repeat mints, so the defect
-touched nearly every event. v2 attaches outcomes per event through the
+6,359 of 6,660 events (95.5%) live on repeat mints, so the pooling
+affected nearly every event. v2 attaches outcomes per event through the
 canonical `event_id = sha256("event|" + mint + "|" + rejectTs_utc_ms +
 "|" + rejectReason).hexdigest()[:16]` and refuses to mint-pool by
-default. v1.0.0 event-level results must not be cited as v2 scientific
-truth. Full arithmetic in `V1_CORRECTION_NOTICE.md`.
+default. Full arithmetic in `CHANGELOG.md` ("v1.0.0 to v2: what
+changed").
 
 # Data linkage
 

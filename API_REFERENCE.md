@@ -14,8 +14,9 @@ package (see `red2400_toolkit/__init__.py`).
 - `MODE_FIRST_EVENT_PER_MINT = "first_event_per_mint"`
 - `MODE_LATEST_EVENT_PER_MINT = "latest_event_per_mint"`
 - `MODE_MINT_SUMMARY = "mint_summary"` — one row per mint (earliest event).
-- `MODE_LEGACY_MINT_POOLED = "mint_summary_LEGACY_defective"` — reproduces v1
-  mint-pooled dispatch; emits `DeprecationWarning`.
+- `MODE_LEGACY_MINT_POOLED = "mint_summary_LEGACY_defective"` — reproduces the
+  v1.0.0 token-pooled dispatch; emits `DeprecationWarning`. The string
+  value is kept unchanged for compatibility.
 - `VALID_MODES: frozenset[str]`
 
 ### Errors
