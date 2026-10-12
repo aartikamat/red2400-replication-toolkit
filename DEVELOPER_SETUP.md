@@ -78,8 +78,8 @@ python -m build
 ```
 
 This produces `dist/red2400_toolkit-2.0.1-*.whl` and `.tar.gz`. Do NOT
-`twine upload` from a developer machine — releases go through the
-`RELEASE_CHECKLIST.md` steps and are cut by the maintainer only.
+`twine upload` them: the toolkit is not published on PyPI, and releases
+are cut by the maintainer only.
 
 ## Troubleshooting
 

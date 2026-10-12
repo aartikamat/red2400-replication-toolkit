@@ -50,15 +50,8 @@ current in-tree version is 2.0.1.
 
 ## Publishing
 
-Releases are:
-
-1. Tagged as `vMAJOR.MINOR.PATCH` on `main`.
-2. Archived to Zenodo under the software-DOI concept (distinct from
-   the RED-2400 dataset DOI).
-3. Published to PyPI under `red2400-toolkit`.
-
-The Zenodo software DOI is added to `CITATION.cff` and to the README
-badge once it is minted.
+Releases are tagged as `vMAJOR.MINOR.PATCH` on `main` and published
+as GitHub releases. The toolkit is not published on PyPI.
 
 ## Deprecation policy
 
@@ -69,7 +62,8 @@ badge once it is minted.
 
 ## Yanking
 
-Releases containing scientific-correctness defects severe enough to
-require withdrawal will be **not** deleted from PyPI (that breaks
-reproducibility) but will be marked `Yanked` per PEP 592. The Zenodo
-software-DOI archive is preserved so citations continue to resolve.
+Releases with scientific-correctness problems serious enough to
+require withdrawal are **not** deleted (that breaks reproducibility);
+they are kept as tags and marked as superseded in `CHANGELOG.md` and
+the README. The Zenodo software-DOI archive is preserved so citations
+continue to resolve.

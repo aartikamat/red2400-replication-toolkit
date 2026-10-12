@@ -2,13 +2,7 @@
 
 [![CI](https://github.com/aartikamat/red2400-replication-toolkit/actions/workflows/tests.yml/badge.svg)](https://github.com/aartikamat/red2400-replication-toolkit/actions)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-<!-- Dataset DOI, distinct from the software DOI: -->
 [![Dataset DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.19989074.svg)](https://doi.org/10.5281/zenodo.19989074)
-<!-- Software DOI badge: DO NOT ENABLE until the v2.0.1 Zenodo software
-  concept DOI is minted. Placeholder -- the maintainer will replace
-  `SOFTWARE_DOI` with the actual value at release time (see
-  MANUAL_RELEASE_INSTRUCTIONS_FOR_ARATI.md). -->
-<!-- [![Software DOI](https://zenodo.org/badge/DOI/SOFTWARE_DOI.svg)](https://doi.org/SOFTWARE_DOI) -->
 
 > [!NOTE]
 > **Version note (v2, September 2026).**
@@ -67,35 +61,25 @@ installable Python library. It:
   `latest_event_per_mint`, `mint_summary`.
 - Keeps the event-level comparison against the lifecycle file that the
   companion paper reported in Section V. That comparison is withdrawn: it
-  was found to reflect repeated rejections of the same tokens. A correction
-  to the companion paper is in preparation. The code is kept only so the
-  earlier result can be reproduced; it should not be cited as a validation.
+  was found to reflect repeated rejections of the same tokens. Version 2 of
+  the companion paper (arXiv:2607.02830, 8 October 2026) carries a
+  correction notice. The code is kept only so the earlier result can be
+  reproduced; it should not be cited as a validation.
 - Regenerates Figures 1 and 2 of the companion paper.
 
 ## Install
 
-The `v2.0.1` release will be published to PyPI once the release
-checklist completes. Until then, install from source at the v2 tag or
-from the `main` branch:
+The toolkit is not published on PyPI. Install from source:
 
 ```bash
-# Install directly from GitHub (once the v2 tag is cut):
-pip install "git+https://github.com/aartikamat/red2400-replication-toolkit.git@v2.0.1"
+# Install directly from GitHub (release v2.0.2):
+pip install "git+https://github.com/aartikamat/red2400-replication-toolkit.git@v2.0.2"
 
 # Or clone + editable install:
 git clone https://github.com/aartikamat/red2400-replication-toolkit.git
 cd red2400-replication-toolkit
 pip install -e ".[figures]"
 ```
-
-<!-- Restore this once the v2 PyPI upload is verified (see
-  RELEASE_CHECKLIST.md item 7):
-```bash
-pip install red2400-toolkit
-# or, with figure-regeneration support:
-pip install "red2400-toolkit[figures]"
-```
--->
 
 ## Quickstart
 
@@ -134,9 +118,7 @@ machine-readable metadata.
 
 ```
 Kamat, A. U. (2026). RED-2400 Replication Toolkit (Version 2.0.1)
-  [Computer software]. Zenodo.
-  DOI: replace with the software concept DOI once minted (see
-  MANUAL_RELEASE_INSTRUCTIONS_FOR_ARATI.md Block 6).
+  [Computer software]. GitHub.
   https://github.com/aartikamat/red2400-replication-toolkit
 
 Kamat, A. U. (2026). Outcome-Classified Precision Auditing of Filter Rules
@@ -157,9 +139,6 @@ dataset deposit page for dataset-license terms. See
 - Benchmark dataset: [Zenodo 10.5281/zenodo.19989074](https://doi.org/10.5281/zenodo.19989074),
   also at [Hugging Face](https://huggingface.co/datasets/AratiKamat/RED-2400)
 - Methodology paper (PRFS): [SSRN 6607301](https://ssrn.com/abstract=6607301)
-- Canonical event model spec: the P11 canonicalization spec is
-  archived on Zenodo (see `paper/paper.bib` entry `kamat2026p11`
-  for the concept DOI once minted).
 
 ## Reporting issues
 

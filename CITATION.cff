@@ -11,21 +11,14 @@ abstract: >
   outcomes to each rejection event.
 type: software
 version: "2.0.1"
-# date-released is the actual push date of the v2.0.1 tag on origin
-# (see JOSS_REPAIR_2026-09-15/PHASE6_RELEASE_LOG.md § 4).
 date-released: "2026-09-15"
 license: MIT
 repository-code: "https://github.com/aartikamat/red2400-replication-toolkit"
-# Placeholder for the software concept DOI. Distinct from the dataset
-# DOI (10.5281/zenodo.19989074). The maintainer will mint this DOI when
-# archiving the v2 tag to Zenodo (see MANUAL_RELEASE_INSTRUCTIONS_FOR_ARATI.md)
-# and un-comment the line below with the real value.
-# doi: "REPLACE_WITH_ZENODO_SOFTWARE_CONCEPT_DOI_AT_RELEASE"
 authors:
   - family-names: Kamat
     given-names: Arati Uday
     orcid: "https://orcid.org/0009-0000-4781-312X"
-    affiliation: "Independent Researcher, United States"
+    affiliation: "Independent Researcher"
 keywords:
   - decentralized finance
   - algorithmic trading
@@ -45,9 +38,5 @@ preferred-citation:
       given-names: Arati Uday
       orcid: "https://orcid.org/0009-0000-4781-312X"
   year: 2026
-  # Companion-paper status: preprint on SSRN. The maintainer should
-  # revalidate this line against the paper's live state (any journal
-  # decision) at release time; do NOT reassert peer-review status
-  # unless a live acceptance is on record.
-  notes: "SSRN abstract ID 6638259. Verify companion-paper status before release."
+  notes: "SSRN abstract 6638259; arXiv:2607.02830 version 2 (8 October 2026) carries a correction notice."
   url: "https://ssrn.com/abstract=6638259"

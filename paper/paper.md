@@ -13,11 +13,10 @@ authors:
     orcid: 0009-0000-4781-312X
     affiliation: 1
 affiliations:
-  - name: Independent Researcher, United States
+  - name: Independent Researcher
     index: 1
 date: 17 September 2026
 bibliography: paper.bib
-archive: https://archive.softwareheritage.org/swh:1:rev:05b0daffd1785d38aabea11989dd824755691e99
 ---
 
 # Summary
