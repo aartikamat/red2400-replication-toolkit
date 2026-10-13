@@ -44,7 +44,7 @@ compatible datasets that adopt the canonical event model.
   updated documentation, and an entry in `CHANGELOG.md`. If the change
   affects scientific outputs, it also requires:
   - An updated adversarial fixture and hand-worked expected table.
-  - Comparison against the independent oracle (`tests/oracle.py`).
+  - Comparison against the separate test oracle (`tests/oracle.py`).
   - A migration note explaining how prior outputs are affected.
 
 ## Release cadence

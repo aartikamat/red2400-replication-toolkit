@@ -117,7 +117,7 @@ the companion paper. See [`CITATION.cff`](CITATION.cff) for
 machine-readable metadata.
 
 ```
-Kamat, A. U. (2026). RED-2400 Replication Toolkit (Version 2.0.1)
+Kamat, A. U. (2026). RED-2400 Replication Toolkit (Version 2.0.2)
   [Computer software]. GitHub.
   https://github.com/aartikamat/red2400-replication-toolkit
 
@@ -125,6 +125,10 @@ Kamat, A. U. (2026). Outcome-Classified Precision Auditing of Filter Rules
   in Algorithmic DEX Trading: Evidence from 2,400 Rejection Events.
   SSRN 6638259.
 ```
+
+Release v2.0.2 (18 September 2026) changed no package code, so the
+installed package still reports version 2.0.1 (see
+[`CHANGELOG.md`](CHANGELOG.md)).
 
 ## License
 

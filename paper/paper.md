@@ -33,8 +33,8 @@ The toolkit validates the deposit schema, attaches each rejection
 event to its own forward-outcome trajectory through a canonical
 event-identity primitive, applies a documented five-tier outcome
 classification, and reports per-filter distributions and descriptive
-save-to-miss ratios. It ships an independent reference implementation
-of the rule as a test oracle, an adversarial fixture with
+save-to-miss ratios. It ships a separate reference implementation
+(same author) of the rule as a test oracle, an adversarial fixture with
 hand-computed expected tiers, and a legacy compatibility mode that
 reproduces the token-pooled dispatch of the v1.0.0 release.
 
@@ -56,8 +56,9 @@ setting it re-appears with three additional obstacles absent from
 prior tooling: (1) a canonical event identity so two rejections of the
 same asset at different times are not conflated, (2) explicit
 propagation of missing outcome linkage so counts of included and
-excluded events are auditable, and (3) an independent reference
-implementation against which the primary classifier can be checked.
+excluded events are auditable, and (3) a separate reference
+implementation (same author) against which the primary classifier can
+be checked.
 Research-software practice [@sandve2013ten; @taschuk2017ten] recommends
 exactly this triangulation of dispatch, oracle, and hand-worked fixture
 as a durable reproducibility contract.

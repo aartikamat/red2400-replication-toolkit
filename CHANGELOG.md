@@ -77,6 +77,11 @@ The v1 estimand stays available as `MODE_LEGACY_MINT_POOLED` (emits
 unless `allow_legacy=True`. The API changes are listed under 2.0.0 and
 2.0.1 below.
 
+## [2.0.2] -- 2026-09-18
+
+- No package code changed in 2.0.2 (documentation, metadata, CI and
+  issue templates only); the package still reports version 2.0.1.
+
 ## [2.0.1] -- 2026-09-15
 
 ### Estimator updates (S2, S4, S5, S6)
@@ -236,7 +241,7 @@ The v2.0.1 outputs are regenerated in
 - Loud-fail orphan handling: `classify_dataset(on_missing='raise')` is the
   new default; `on_missing='quarantine'` is opt-in. Silent mint-pooling is
   gone.
-- `tests/oracle.py` -- independent oracle written without importing
+- `tests/oracle.py` -- separate test oracle (same author) written without importing
   `red2400_toolkit`; used by the event-level test suite.
 - `tests/conftest.py::ADVERSARIAL_HAND_TABLE` -- hand-computed expected
   tier for every event in the adversarial fixture (repeat-mint,

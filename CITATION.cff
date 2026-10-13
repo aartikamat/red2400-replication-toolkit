@@ -8,10 +8,12 @@ abstract: >
   (P11 event_id = sha256("event|" + mint + "|" + rejectTs_utc_ms + "|" + rejectReason)),
   per-filter audit reporting, and aggregate save-to-miss ratios under
   conservative and combined interpretations (Kamat, 2026). v2 attaches
-  outcomes to each rejection event.
+  outcomes to each rejection event. v1.0.0 (2026-06-05) is kept as a git
+  tag to reproduce v1-era outputs; cite v2 for per-event results. v2 also
+  adds a separate test oracle (same author) at tests/oracle.py.
 type: software
-version: "2.0.1"
-date-released: "2026-09-15"
+version: "2.0.2"
+date-released: "2026-09-18"
 license: MIT
 repository-code: "https://github.com/aartikamat/red2400-replication-toolkit"
 authors:
@@ -26,10 +28,6 @@ keywords:
   - reject inference
   - benchmark dataset
   - event identity model
-notes: >
-  v1.0.0 (2026-06-05) is kept as a git tag to reproduce v1-era outputs;
-  cite v2 for per-event results. v2 also adds an independent test oracle
-  at tests/oracle.py.
 preferred-citation:
   type: article
   title: "Outcome-Classified Precision Auditing of Filter Rules in Algorithmic DEX Trading: Evidence from 2,400 Rejection Events"
