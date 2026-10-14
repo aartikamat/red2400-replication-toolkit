@@ -60,7 +60,7 @@ installable Python library. It:
   never conflated: `event` (default), `first_event_per_mint`,
   `latest_event_per_mint`, `mint_summary`.
 - Keeps the event-level comparison against the lifecycle file that the
-  companion paper reported in Section V. That comparison is withdrawn: it
+  companion paper reported in Section V. That comparison is no longer reported: it
   was found to reflect repeated rejections of the same tokens. Version 2 of
   the companion paper (arXiv:2607.02830, 8 October 2026) carries a
   correction notice. The code is kept only so the earlier result can be
